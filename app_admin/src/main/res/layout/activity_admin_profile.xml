@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_admin_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.mma.noshow_admin.AdminHomeActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "62dp"
+            android:background = "#FFF">
+
+            <RelativeLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent">
+
+                <!-- 뒤로가기 버튼 -->
+                <Button
+                    android:id = "@+id/btn_back"
+                    android:layout_width = "30dp"
+                    android:layout_height = "30dp"
+                    android:layout_centerVertical = "true"
+                    android:layout_marginLeft = "15dp"
+                    android:background = "@drawable/left_arrow"
+                    android:onClick = "onClick"/>
+                <Button
+                    android:id = "@+id/btn_edit"
+                    android:layout_width = "30dp"
+                    android:layout_height = "30dp"
+                    android:layout_centerVertical = "true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight = "15dp"
+                    android:background = "@drawable/edit"
+                    android:onClick = "onClick"/>
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal = "true"
+                    android:layout_centerVertical = "true"
+                    android:src="@drawable/logo"/>
+            </RelativeLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal = "true"
+            android:layout_centerVertical = "true"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="업소 명"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
+        <EditText
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="꿈과 치킨"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="업소 주소"
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:inputType="none"/>
+        <EditText
+            android:id="@+id/txt_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서울 특별시 행복구 희망동 망한로 "
+            android:textSize="20dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:inputType="none"/>
+    </LinearLayout>
+</layout>
