@@ -57,8 +57,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 				if (user != null) {
 					// User is signed in
 					Log.d("ASDF", "onAuthStateChanged:signed_in:" + user.getUid());
-					finish();
 					Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+
+					// 홈 화면으로 이동
+					Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+					intent.putExtra("uid", user.getUid());
+					startActivity(intent);
+					finish();
 				} else {
 					// User is signed out
 					Log.d("ASDF", "onAuthStateChanged:signed_out");
