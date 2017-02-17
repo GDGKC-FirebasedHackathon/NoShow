@@ -1,1 +1,1 @@
-include ':app_admin', ':app_user'
+include ':app_admin', ':app_user', ':common'
