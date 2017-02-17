@@ -68,8 +68,8 @@ public class AdminFoodsActivity extends AppCompatActivity
 		};
 		binding.listFood.setAdapter(adapter);
 
-		adapter.add(new Food("ASDFSDAF", "불고기 버거", "2500"));
-		adapter.add(new Food("ASDFSDAF", "1955 버거", "3800"));
+		adapter.add(new Food("불고기 버거", 2500));
+		adapter.add(new Food("1955 버거", 3800));
 	}
 
 	public void onClick(View view)
@@ -93,7 +93,7 @@ public class AdminFoodsActivity extends AppCompatActivity
 						{
 							String foodName = dialogBinding.editFoodName.getText().toString();
 							String price = dialogBinding.editPrice.getText().toString();
-							adapter.add(new Food("ASDFADSF", foodName, price));
+							adapter.add(new Food("ASDFADSF", foodName, Integer.parseInt(price)));
 							dialog.dismiss();
 						}
 					})

@@ -77,12 +77,12 @@ public class AdminHomeActivity extends Activity
 		};
 		binding.listNoshow.setAdapter(adapter);
 
-		FoodNoShow foodNoShow = new FoodNoShow(new Admin("", "맥도날드", "서울 강북구 미아 2동"), "", 12000, "종합 세트");
-		foodNoShow.foods.add(new Food("", "불고기 버거", "2000", 5));
+		FoodNoShow foodNoShow = new FoodNoShow(new Admin("맥도날드", "서울 강북구 미아 2동"), "", 12000, "종합 세트");
+		foodNoShow.foods.add(new Food("불고기 버거", 2000));
 		adapter.add(foodNoShow);
 
-		foodNoShow = new FoodNoShow(new Admin("", "빕스", "서울 강북구 미아 1동"), "", 7000, "어떤 세트");
-		foodNoShow.foods.add(new Food("", "스테이크", "5000", 2));
+		foodNoShow = new FoodNoShow(new Admin("빕스", "서울 강북구 미아 1동"), "", 7000, "어떤 세트");
+		foodNoShow.foods.add(new Food("스테이크", 5000));
 		adapter.add(foodNoShow);
 
 		// NoShow 추가
@@ -105,8 +105,8 @@ public class AdminHomeActivity extends Activity
 								String price = dialogBinding.editPrice.getText().toString();
 								String count = dialogBinding.editCount.getText().toString();
 
-								FoodNoShow foodNoShow = new FoodNoShow(new Admin("", "어떤 음식점", "안르로메다"), "", Integer.parseInt(price), "어떤 세트");
-								foodNoShow.foods.add(new Food("", foodName, price, Integer.parseInt(count)));
+								FoodNoShow foodNoShow = new FoodNoShow(new Admin("어떤 음식점", "안르로메다"), "", Integer.parseInt(price), "어떤 세트");
+								foodNoShow.foods.add(new Food(foodName, price, Integer.parseInt(count)));
 								adapter.add(foodNoShow);
 
 								dialog.dismiss();
