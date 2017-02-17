@@ -1,8 +1,10 @@
 package controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,25 +23,11 @@ public class LoginController {
 
     private static FirebaseAuth.AuthStateListener mAuthListener;
     private static FirebaseAuth mAuth;
-    private static String uid;
-    public static void firebaseInit(final Activity act){
+    public static String uid;
+    public static void firebaseInit(FirebaseAuth.AuthStateListener dd){
         mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d("ASDF", "onAuthStateChanged:signed_in:" + user.getUid());
-                    uid = user.getUid();
-                    act.finish();
-                } else {
-                    // User is signed out
-                    Log.d("ASDF", "onAuthStateChanged:signed_out");
-                }
-            }
-        };
+        mAuthListener = dd;
     }
     public static void firebaseAuthWithGoogle(Activity act, final GoogleSignInAccount acct) {
         Log.d("ASDF", "firebaseAuthWithGoogle:" + acct.getId());

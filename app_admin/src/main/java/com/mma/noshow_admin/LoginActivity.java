@@ -34,23 +34,39 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 	private  GoogleApiClient mGoogleApiClient;
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+		protected void onCreate(Bundle savedInstanceState)
+		{
+			super.onCreate(savedInstanceState);
+			binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
 
-		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-				.requestIdToken(getString(R.string.default_web_client_id))
-				.requestEmail()
-				.build();
+			GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+					.requestIdToken(getString(R.string.default_web_client_id))
+					.requestEmail()
+					.build();
 
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
 				.enableAutoManage(this, this)
 				.addApi(Auth.GOOGLE_SIGN_IN_API, gso)
 				.build();
 		//init
-		LoginController.firebaseInit(this);
+		LoginController.firebaseInit(new FirebaseAuth.AuthStateListener() {
+			@Override
+			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+				FirebaseUser user = firebaseAuth.getCurrentUser();
+				if (user != null) {
+					// User is signed in
+					Log.d("ASDF", "onAuthStateChanged:signed_in:" + user.getUid());
+					LoginController.uid = user.getUid();
+					finish();
+					startActivity(new Intent(LoginActivity.this,AdminHomeActivity.class));
+					Toast.makeText(LoginActivity.this, "123123", Toast.LENGTH_SHORT).show();
+				} else {
+					// User is signed outg
+					Log.d("ASDF", "onAuthStateChanged:sined_out");
+				}
+			}
+		});
 
 		Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 		startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -61,13 +77,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 	@Override
 	public void onStart() {
 		super.onStart();
-		LoginController.addAuthListener();
+//		LoginController.addAuthListener();
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		LoginController.removeAuthListener();
+//		LoginController.removeAuthListener();
 
 	}
 
@@ -81,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 			Log.d("ASDF", "handleSignInResult:" + result.isSuccess());
 			if (result.isSuccess()) {
 				GoogleSignInAccount acct = result.getSignInAccount();
-				LoginController.firebaseAuthWithGoogle(this,acct);
+		//		LoginController.firebaseAuthWithGoogle(this,acct);
 			}
 		}
 	}
