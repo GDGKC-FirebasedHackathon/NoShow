@@ -1,10 +1,12 @@
 package com.mma.noshow_admin;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -39,14 +41,35 @@ public class AdminHomeActivity extends Activity
 					itemBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.item_no_img_reservation_info, parent, false);
 				else itemBinding = DataBindingUtil.getBinding(convertView);
 
-				FoodNoShow item = getItem(position);
+				final FoodNoShow item = getItem(position);
 				itemBinding.txtFoodName.setText(item.foods.get(0).name);
-				itemBinding.txtDiscountedPrice.setText(item.totalPrice + "");
-				itemBinding.txtPrice.setText(Integer.parseInt(item.foods.get(0).price) * item.foods.get(0).count + "");
+				itemBinding.txtDiscountedPrice.setText(item.totalPrice + "￦");
 				itemBinding.txtRemained.setText(item.foods.get(0).count + "");
 				itemBinding.txtRestaurantName.setText(item.admin.name);
 				itemBinding.txtRestaurantLocation.setText(item.admin.location);
 				itemBinding.txtDiscountRate.setText("0%");
+				itemBinding.noshowCard.setOnLongClickListener(new View.OnLongClickListener()
+				{
+					@Override
+					public boolean onLongClick(View v)
+					{
+						new AlertDialog.Builder(AdminHomeActivity.this)
+								.setTitle("경고")
+								.setMessage("NoShow를 삭제하시겠습니까?")
+								.setPositiveButton("예", new DialogInterface.OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										adapter.remove(item);
+										dialog.dismiss();
+									}
+								})
+								.setNegativeButton("아니요", null).show();
+
+						return true;
+					}
+				});
 
 				return itemBinding.getRoot();
 			}
@@ -60,6 +83,16 @@ public class AdminHomeActivity extends Activity
 		foodNoShow = new FoodNoShow(new Admin("", "빕스", "서울 강북구 미아 1동"), "", 7000, "어떤 세트");
 		foodNoShow.foods.add(new Food("", "스테이크", "5000", 2));
 		adapter.add(foodNoShow);
+
+		// NoShow 추가
+		binding.fab.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+
+			}
+		});
 	}
 
 	public void onClick(View view)
