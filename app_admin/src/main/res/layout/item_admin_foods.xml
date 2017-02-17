@@ -5,10 +5,11 @@
 	xmlns:tools = "http://schemas.android.com/tools">
 
 	<android.support.v7.widget.CardView
-		android:id = "@+id/reservation_card"
+		android:id = "@+id/food_card"
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content"
 		android:clickable = "true"
+		android:longClickable = "true"
 		app:cardElevation = "4dp">
 
 		<FrameLayout

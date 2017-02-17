@@ -53,6 +53,7 @@
 			android:layout_height = "match_parent"
 			android:divider = "@android:color/transparent"
 			android:dividerHeight = "7dp"
-			android:headerDividersEnabled = "true"/>
+			android:headerDividersEnabled = "true"
+			android:longClickable = "true"/>
 	</LinearLayout>
 </layout>

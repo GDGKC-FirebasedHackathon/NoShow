@@ -1,14 +1,17 @@
 package com.mma.noshow_admin;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.mma.noshow_admin.databinding.ActivityAdminFoodsBinding;
+import com.mma.noshow_admin.databinding.DialogAddFoodBinding;
 import com.mma.noshow_admin.databinding.ItemAdminFoodsBinding;
 
 import model.Food;
@@ -28,7 +31,7 @@ public class AdminFoodsActivity extends AppCompatActivity
 		{
 			@NonNull
 			@Override
-			public View getView(int position, View convertView, ViewGroup parent)
+			public View getView(final int position, View convertView, ViewGroup parent)
 			{
 				ItemAdminFoodsBinding itemBinding;
 				if (convertView == null)
@@ -39,6 +42,26 @@ public class AdminFoodsActivity extends AppCompatActivity
 				Food food = getItem(position);
 				itemBinding.txtFoodName.setText(food.name);
 				itemBinding.txtPrice.setText(food.price + "￦");
+				itemBinding.foodCard.setOnLongClickListener(new View.OnLongClickListener()
+				{
+					@Override
+					public boolean onLongClick(View v)
+					{
+						new AlertDialog.Builder(AdminFoodsActivity.this)
+								.setTitle("경고")
+								.setMessage("음식을 삭제하시겠습니까?")
+								.setPositiveButton("예", new DialogInterface.OnClickListener()
+								{
+									@Override
+									public void onClick(DialogInterface dialog, int which)
+									{
+										adapter.remove(adapter.getItem(position));
+									}
+								})
+								.setNegativeButton("아니요", null).show();
+						return true;
+					}
+				});
 
 				return itemBinding.getRoot();
 			}
@@ -47,5 +70,34 @@ public class AdminFoodsActivity extends AppCompatActivity
 
 		adapter.add(new Food("ASDFSDAF", "불고기 버거", "2500"));
 		adapter.add(new Food("ASDFSDAF", "1955 버거", "3800"));
+	}
+
+	public void onClick(View view)
+	{
+		if (view == binding.btnBack)
+		{
+			finish();
+		}
+
+		else if (view == binding.btnAdd)
+		{
+			final DialogAddFoodBinding dialogBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.dialog_add_food, null, false);
+
+			new AlertDialog.Builder(this)
+					.setTitle("음식 등록")
+					.setView(dialogBinding.getRoot())
+					.setPositiveButton("추가", new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							String foodName = dialogBinding.editFoodName.getText().toString();
+							String price = dialogBinding.editPrice.getText().toString();
+							adapter.add(new Food("ASDFADSF", foodName, price));
+							dialog.dismiss();
+						}
+					})
+					.setNegativeButton("취소", null).show();
+		}
 	}
 }

@@ -1,0 +1,59 @@
+<!-- 음식 추가 대화상자 레이아웃 -->
+<layout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:tools = "http://schemas.android.com/tools">
+
+	<LinearLayout
+		android:layout_width = "200dp"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical"
+		android:padding = "20dp">
+
+		<TextView
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:text = "음식 이름"
+			android:textSize = "20sp"/>
+
+		<EditText
+			android:id = "@+id/edit_food_name"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:singleLine = "true"
+			android:textSize = "17sp"
+			tools:text = "제육볶음"/>
+
+		<!-- 여백 -->
+		<View
+			android:layout_width = "wrap_content"
+			android:layout_height = "10dp"/>
+
+		<TextView
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:text = "가격"
+			android:textSize = "20sp"/>
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content">
+
+			<EditText
+				android:id = "@+id/edit_price"
+				android:layout_width = "0dp"
+				android:layout_height = "wrap_content"
+				android:layout_weight = "1"
+				android:gravity = "right"
+				android:inputType = "number"
+				android:singleLine = "true"
+				android:textSize = "17sp"
+				tools:text = "5000"/>
+
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:text = "￦"/>
+		</LinearLayout>
+
+	</LinearLayout>
+</layout>
