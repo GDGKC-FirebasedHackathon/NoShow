@@ -1,111 +1,146 @@
 <!-- 예약 정보 리스트뷰 항목 레이아웃 -->
 <layout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools">
 
-	<LinearLayout
+	<android.support.v7.widget.CardView
 		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content">
+		android:layout_height = "wrap_content"
+		app:cardElevation = "3dp">
 
-
-		<RelativeLayout
+		<FrameLayout
 			android:layout_width = "match_parent"
-			android:layout_height = "match_parent"
-			android:gravity = "center_vertical"
-			android:padding = "25dp">
+			android:layout_height = "match_parent">
 
-			<!-- 음식점 이름 -->
-
-
-			<!-- 음식 이름 -->
-			<TextView
-				android:id = "@+id/txt_food_name"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginTop = "30dp"
-				android:text = "음식 이름"
-				android:textSize = "17dp"/>
-
-			<LinearLayout
+			<RelativeLayout
 				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_below = "@id/txt_food_name"
-				android:layout_marginTop = "5dp">
+				android:layout_height = "match_parent"
+				android:gravity = "center_vertical"
+				android:padding = "25dp">
 
-				<!-- 할인률 -->
+				<!-- 음식점 이름 -->
 				<TextView
-					android:id = "@+id/txt_discount_rate"
+					android:id = "@+id/txt_restaurant_name"
 					android:layout_width = "wrap_content"
 					android:layout_height = "wrap_content"
-					android:layout_gravity = "center_vertical"
-					android:background = "@drawable/percent"
-					android:gravity = "center"
-					android:text = "30%"
-					android:textColor = "#FFF"/>
+					android:text = "음식점 이름"
+					android:textSize = "25sp"
+					android:textStyle = "bold"/>
 
-				<!-- 가격 표시줄 -->
+				<!-- 음식점 위치 -->
 				<LinearLayout
+					android:id = "@+id/restaurant_location"
 					android:layout_width = "wrap_content"
 					android:layout_height = "wrap_content"
-					android:layout_marginLeft = "10dp"
-					android:layout_weight = "1"
-					android:orientation = "vertical">
+					android:layout_below = "@id/txt_restaurant_name"
+					android:layout_marginTop = "3dp"
+					android:gravity = "center_vertical">
 
-					<!-- 음식 원가 -->
-					<TextView
-						android:id = "@+id/txt_price"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:layout_below = "@id/txt_food_name"
-						android:text = "원가￦"/>
-
-					<!-- 음식 할인가 -->
-					<TextView
-						android:id = "@+id/txt_discounted_price"
-						android:layout_width = "wrap_content"
-						android:layout_height = "wrap_content"
-						android:text = "할인가￦"
-						android:textSize = "20sp"
-						android:textStyle = "bold"/>
-				</LinearLayout>
-
-				<ImageView
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_gravity = "bottom"
-					android:layout_marginRight = "10dp"
-					android:background = "@drawable/person"/>
-				<!-- 음식 남은 수량 -->
-				<TextView
-					android:id = "@+id/txt_remained"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_gravity = "bottom"
-					android:layout_weight = "0"
-					android:text = "1"
-					android:textSize = "30sp"/>
-
-				<LinearLayout
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_gravity = "bottom"
-					android:layout_marginLeft = "5dp"
-					android:orientation = "vertical">
-
-					<Button
-						android:id = "@+id/btn_up"
+					<ImageView
 						android:layout_width = "15dp"
 						android:layout_height = "15dp"
-						android:background = "@drawable/adjust_amount"/>
+						android:src = "@drawable/spot"/>
 
-					<Button
-						android:id = "@+id/btn_down"
-						android:layout_width = "15dp"
-						android:layout_height = "15dp"
-						android:background = "@drawable/adjust_amount2"/>
-
+					<TextView
+						android:id = "@+id/txt_restaurant_location"
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "음식점 위치"
+						android:textColor = "#a9a9a9"
+						android:textSize = "10sp"/>
 				</LinearLayout>
-			</LinearLayout>
-		</RelativeLayout>
-	</LinearLayout>
+
+				<!-- 음식 이름 -->
+				<LinearLayout
+					android:id = "@+id/food_name"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_below = "@id/restaurant_location"
+					android:layout_marginTop = "10dp"
+					android:gravity = "center_vertical">
+
+					<ImageView
+						android:layout_width = "20dp"
+						android:layout_height = "20dp"
+						android:src = "@drawable/spoon"/>
+
+					<TextView
+						android:id = "@+id/txt_food_name"
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "음식 이름"
+						android:textSize = "17dp"/>
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_below = "@id/food_name"
+					android:layout_marginTop = "5dp">
+
+					<!-- 할인률 -->
+					<TextView
+						android:id = "@+id/txt_discount_rate"
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:layout_gravity = "center_vertical"
+						android:background = "@drawable/percent"
+						android:gravity = "center"
+						android:text = "30%"
+						android:textColor = "#FFF"/>
+
+					<!-- 가격 표시줄 -->
+					<LinearLayout
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:layout_marginLeft = "10dp"
+						android:layout_weight = "1"
+						android:orientation = "vertical">
+
+						<!-- 음식 원가 -->
+						<TextView
+							android:id = "@+id/txt_price"
+							android:layout_width = "wrap_content"
+							android:layout_height = "wrap_content"
+							android:layout_below = "@id/txt_food_name"
+							android:text = "원가￦"/>
+
+						<!-- 음식 할인가 -->
+						<TextView
+							android:id = "@+id/txt_discounted_price"
+							android:layout_width = "wrap_content"
+							android:layout_height = "wrap_content"
+							android:text = "할인가￦"
+							android:textSize = "20sp"
+							android:textStyle = "bold"/>
+					</LinearLayout>
+
+					<ImageView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:layout_gravity = "bottom"
+						android:layout_marginRight = "10dp"
+						android:background = "@drawable/person"/>
+					<!-- 음식 남은 수량 -->
+					<TextView
+						android:id = "@+id/txt_remained"
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:layout_gravity = "bottom"
+						android:layout_weight = "0"
+						android:text = "1"
+						android:textSize = "30sp"/>
+				</LinearLayout>
+			</RelativeLayout>
+
+			<ImageView
+				android:id = "@+id/ribbon"
+				android:layout_width = "60dp"
+				android:layout_height = "60dp"
+				android:layout_alignParentRight = "true"
+				android:layout_gravity = "right"
+				android:src = "@drawable/triangle"/>
+		</FrameLayout>
+	</android.support.v7.widget.CardView>
 </layout>

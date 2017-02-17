@@ -15,8 +15,8 @@ public class FoodNoShow {
     public String userPhone;
     public ArrayList<Food> foods = new ArrayList<>();
     public FoodNoShow(){}
-    public FoodNoShow(ArrayList<Food> foods, String userPhone, int totalPrice, String name, String id) {
-        this.foods = foods;
+    public FoodNoShow(Admin admin, String userPhone, int totalPrice, String name) {
+        this.admin = admin;
         this.userPhone = userPhone;
         this.totalPrice = totalPrice;
         this.name = name;

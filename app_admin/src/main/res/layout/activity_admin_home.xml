@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_admin_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.mma.noshow_admin.AdminHomeActivity">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "62dp"
-            android:background = "#FFF">
+	<LinearLayout android:id = "@+id/activity_admin_home"
+	              xmlns:android = "http://schemas.android.com/apk/res/android"
+	              xmlns:tools = "http://schemas.android.com/tools"
+	              android:layout_width = "match_parent"
+	              android:layout_height = "match_parent"
+	              android:orientation = "vertical"
+	              tools:context = "com.mma.noshow_admin.AdminHomeActivity">
 
-            <RelativeLayout
-                android:layout_width = "match_parent"
-                android:layout_height = "match_parent">
+		<android.support.design.widget.AppBarLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "62dp"
+			android:background = "#FFF">
 
-                <Button
-                    android:id = "@+id/btn_profile"
-                    android:layout_width = "30dp"
-                    android:layout_height = "30dp"
-                    android:layout_centerVertical = "true"
-                    android:layout_marginLeft = "15dp"
-                    android:background = "@drawable/mypage"
-                    android:onClick = "onClick"/>
+			<RelativeLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent">
 
-                <Button
-                    android:id = "@+id/btn_food"
-                    android:layout_width = "30dp"
-                    android:layout_height = "30dp"
-                    android:layout_centerVertical = "true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight = "15dp"
-                    android:background = "@drawable/spoon"
-                    android:onClick = "onClick"/>
+				<Button
+					android:id = "@+id/btn_profile"
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_centerVertical = "true"
+					android:layout_marginLeft = "15dp"
+					android:background = "@drawable/mypage"
+					android:onClick = "onClick"/>
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="50dp"
-                    android:layout_centerHorizontal = "true"
-                    android:layout_centerVertical = "true"
-                    android:src="@drawable/logo"/>
-            </RelativeLayout>
+				<Button
+					android:id = "@+id/btn_food"
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_alignParentRight = "true"
+					android:layout_centerVertical = "true"
+					android:layout_marginRight = "15dp"
+					android:background = "@drawable/spoon"
+					android:onClick = "onClick"/>
 
-        </android.support.design.widget.AppBarLayout>
+				<ImageView
+					android:layout_width = "150dp"
+					android:layout_height = "50dp"
+					android:layout_centerHorizontal = "true"
+					android:layout_centerVertical = "true"
+					android:src = "@drawable/logo"/>
+			</RelativeLayout>
 
-        <ListView
-            android:layout_width = "match_parent"
-            android:layout_height = "match_parent">
-        </ListView>
-    </LinearLayout>
+		</android.support.design.widget.AppBarLayout>
+
+		<ListView
+			android:id = "@+id/list_noshow"
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:dividerHeight = "10dp"
+			android:headerDividersEnabled = "true"/>
+	</LinearLayout>
 </layout>
