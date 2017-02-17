@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -14,7 +13,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,33 +21,22 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.mma.noshow_admin.databinding.ActivityMainBinding;
+import com.mma.noshow_admin.databinding.ActivityLoginBinding;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener
 {
 	private static final int RC_SIGN_IN = 1;
 
 	private FirebaseAuth.AuthStateListener mAuthListener;
 	private FirebaseAuth mAuth;
 	private GoogleApiClient mGoogleApiClient;
-	private ActivityMainBinding binding;
+	private ActivityLoginBinding binding;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-		binding.signInButton.setSize(SignInButton.SIZE_STANDARD);
-		binding.signInButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-				startActivityForResult(signInIntent, RC_SIGN_IN);
-			}
-		});
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
 		mAuth = FirebaseAuth.getInstance();
 
@@ -70,12 +57,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 				if (user != null) {
 					// User is signed in
 					Log.d("ASDF", "onAuthStateChanged:signed_in:" + user.getUid());
+					finish();
+					Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
 				} else {
 					// User is signed out
 					Log.d("ASDF", "onAuthStateChanged:signed_out");
 				}
 			}
 		};
+
+		Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+		startActivityForResult(signInIntent, RC_SIGN_IN);
 	}
 
 	@Override
@@ -107,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 		}
 	}
 
-	private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+	private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
 		Log.d("ASDF", "firebaseAuthWithGoogle:" + acct.getId());
 
 		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -122,8 +114,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 						// signed in user can be handled in the listener.
 						if (!task.isSuccessful()) {
 							Log.w("ASDF", "signInWithCredential", task.getException());
-							Toast.makeText(MainActivity.this, "Authentication failed.",
+							Toast.makeText(LoginActivity.this, "Authentication failed.",
 									Toast.LENGTH_SHORT).show();
+						}
+						else
+						{
+							Log.d("ASDF", "token: " + acct.getIdToken());
 						}
 						// ...
 					}
