@@ -23,22 +23,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.mma.noshow_admin.databinding.ActivityLoginBinding;
 
+import controller.AdminController;
+import controller.LoginController;
+
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener
 {
-	private static final int RC_SIGN_IN = 1;
 
-	private FirebaseAuth.AuthStateListener mAuthListener;
-	private FirebaseAuth mAuth;
-	private GoogleApiClient mGoogleApiClient;
+	private  final int RC_SIGN_IN = 1;
 	private ActivityLoginBinding binding;
 
+	private  GoogleApiClient mGoogleApiClient;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-		mAuth = FirebaseAuth.getInstance();
 
 		GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 				.requestIdToken(getString(R.string.default_web_client_id))
@@ -49,25 +49,26 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 				.enableAutoManage(this, this)
 				.addApi(Auth.GOOGLE_SIGN_IN_API, gso)
 				.build();
-
-		mAuthListener = new FirebaseAuth.AuthStateListener() {
-			@Override
-			public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-				FirebaseUser user = firebaseAuth.getCurrentUser();
-				if (user != null) {
-					// User is signed in
-					Log.d("ASDF", "onAuthStateChanged:signed_in:" + user.getUid());
-					finish();
-					Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
-				} else {
-					// User is signed out
-					Log.d("ASDF", "onAuthStateChanged:signed_out");
-				}
-			}
-		};
+		//init
+		LoginController.firebaseInit(this);
 
 		Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 		startActivityForResult(signInIntent, RC_SIGN_IN);
+	}
+
+
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		LoginController.addAuthListener();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		LoginController.removeAuthListener();
+
 	}
 
 	@Override
@@ -80,50 +81,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 			Log.d("ASDF", "handleSignInResult:" + result.isSuccess());
 			if (result.isSuccess()) {
 				GoogleSignInAccount acct = result.getSignInAccount();
-				firebaseAuthWithGoogle(acct);
+				LoginController.firebaseAuthWithGoogle(this,acct);
 			}
 		}
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		mAuth.addAuthStateListener(mAuthListener);
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-		if (mAuthListener != null) {
-			mAuth.removeAuthStateListener(mAuthListener);
-		}
-	}
-
-	private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
-		Log.d("ASDF", "firebaseAuthWithGoogle:" + acct.getId());
-
-		AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-		mAuth.signInWithCredential(credential)
-				.addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-					@Override
-					public void onComplete(@NonNull Task<AuthResult> task) {
-						Log.d("ASDF", "signInWithCredential:onComplete:" + task.isSuccessful());
-
-						// If sign in fails, display a message to the user. If sign in succeeds
-						// the auth state listener will be notified and logic to handle the
-						// signed in user can be handled in the listener.
-						if (!task.isSuccessful()) {
-							Log.w("ASDF", "signInWithCredential", task.getException());
-							Toast.makeText(LoginActivity.this, "Authentication failed.",
-									Toast.LENGTH_SHORT).show();
-						}
-						else
-						{
-							Log.d("ASDF", "token: " + acct.getIdToken());
-						}
-						// ...
-					}
-				});
 	}
 
 	@Override
