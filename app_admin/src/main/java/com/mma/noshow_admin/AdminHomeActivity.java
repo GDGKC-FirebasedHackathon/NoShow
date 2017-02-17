@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 
 import com.mma.common.databinding.ItemNoImgReservationInfoBinding;
 import com.mma.noshow_admin.databinding.ActivityAdminHomeBinding;
+import com.mma.noshow_admin.databinding.DialogAddNoshowBinding;
 
 import model.Admin;
 import model.Food;
@@ -90,7 +91,28 @@ public class AdminHomeActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
+				final DialogAddNoshowBinding dialogBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.dialog_add_noshow, null, false);
 
+				new AlertDialog.Builder(AdminHomeActivity.this)
+						.setTitle("NoShow 추가")
+						.setView(dialogBinding.getRoot())
+						.setPositiveButton("추가", new DialogInterface.OnClickListener()
+						{
+							@Override
+							public void onClick(DialogInterface dialog, int which)
+							{
+								String foodName = dialogBinding.editFoodName.getText().toString();
+								String price = dialogBinding.editPrice.getText().toString();
+								String count = dialogBinding.editCount.getText().toString();
+
+								FoodNoShow foodNoShow = new FoodNoShow(new Admin("", "어떤 음식점", "안르로메다"), "", Integer.parseInt(price), "어떤 세트");
+								foodNoShow.foods.add(new Food("", foodName, price, Integer.parseInt(count)));
+								adapter.add(foodNoShow);
+
+								dialog.dismiss();
+							}
+						})
+						.setNegativeButton("취소", null).show();
 			}
 		});
 	}
