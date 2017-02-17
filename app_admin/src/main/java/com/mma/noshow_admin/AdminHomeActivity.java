@@ -25,5 +25,10 @@ public class AdminHomeActivity extends Activity
 		{
 			startActivity(new Intent(this, AdminProfileActivity.class));
 		}
+
+		else if (view == binding.btnFood)
+		{
+			startActivity(new Intent(this, AdminFoodsActivity.class));
+		}
 	}
 }
