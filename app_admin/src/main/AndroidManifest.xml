@@ -10,11 +10,7 @@
 		android:theme = "@style/AppTheme">
 
 		<activity android:name = "com.mma.noshow_admin.LoginActivity">
-			<intent-filter>
-				<action android:name = "android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-        </activity>
+		</activity>
 
 		<activity
             android:name=".AdminProfileActivity"
@@ -27,6 +23,11 @@
             android:theme="@style/AppTheme"></activity>
 
 		<activity android:name = ".AdminHomeActivity">
+			<intent-filter>
+				<action android:name = "android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+
 		</activity>
     </application>
 
